@@ -5,13 +5,13 @@ const diff = (lhs, rhs) => {
 
   if (!isObject(lhs) || !isObject(rhs)) return rhs; // return updated rhs
 
-  // MN: Pass arrays on right thru if it != left
-  if (Array.isArray(rhs) && lhs.equals(rhs) === false) {
-    return rhs;
-  }
-
   const l = properObject(lhs);
   const r = properObject(rhs);
+
+  // MN: Pass arrays on right thru if it != left
+  if (Array.isArray(r) && l.equals(r) === false) {
+    return r;
+  }
 
   const deletedValues = Object.keys(l).reduce((acc, key) => {
     return r.hasOwnProperty(key) ? acc : { ...acc, [key]: undefined };
